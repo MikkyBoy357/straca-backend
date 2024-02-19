@@ -16,6 +16,8 @@ const dashboardRoutes = require('./routes/dashboard');
 const productsRoutes = require('./routes/products');
 const usersRoutes = require('./routes/users');
 const permissionsRoute = require('./routes/permissions');
+const jobRoute = require('./routes/job');
+const blogRoute = require('./routes/blog')
 
 app.use(logger('[:date[web]] ":method :url" :status :res[content-length]'));
 
@@ -31,7 +33,9 @@ app.use('/countries', countryRoutes);
 app.use('/dashboard', dashboardRoutes);
 app.use('/products', productsRoutes);
 app.use('/permissions', permissionsRoute);
-app.use('/users', usersRoutes)
+app.use('/users', usersRoutes);
+app.use('/blog', blogRoute);
+app.use('/job', jobRoute);
 
 app.get('/', (req, res) => {
     res.send('Hello NODE API');
