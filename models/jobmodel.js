@@ -4,7 +4,7 @@ const validContractTypes = ["fulltime", "parttime"];
 
 const jobSchema = new mongoose.Schema(
   {
-    jobPost: {
+    post: {
       type: String,
       required: true,
     },
@@ -25,7 +25,7 @@ const jobSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    salaryInCFA: {
+    salary: {
       type: Number,
       required: true,
     },

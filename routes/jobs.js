@@ -3,10 +3,10 @@ const router = express.Router();
 const Job = require('../models/jobmodel');
 
 const mongoose = require("mongoose");
-const {authorizeJwt, verifyAccount} = require("../helpers/verifyAccount");
+const { authorizeJwt, verifyAccount } = require("../helpers/verifyAccount");
 
 // GET /jobs - Get all jobs
-router.get('/', authorizeJwt, verifyAccount([{name: 'job', action: "read"}]), async (req, res) => {
+router.get('/', authorizeJwt, verifyAccount([{ name: 'jobs', action: "read" }]), async (req, res) => {
 
     const filter = {};
     const search = req.query.search;
@@ -15,11 +15,11 @@ router.get('/', authorizeJwt, verifyAccount([{name: 'job', action: "read"}]), as
 
     if (search) {
         filter.$or = [
-            {jobPost: {$regex: search, $options: "i"}},
-            {salary: { $regex: search, $options: "i"}},
+            { post: { $regex: search, $options: "i" } },
+            { salary: { $regex: search, $options: "i" } },
             { description: { $regex: search, $options: "i" } },
-            {location : {$regex: search, $options: "i"}}
-            
+            { location: { $regex: search, $options: "i" } }
+
         ];
 
     }
@@ -35,7 +35,7 @@ router.get('/', authorizeJwt, verifyAccount([{name: 'job', action: "read"}]), as
 });
 
 // GET /jobs/:id - Get a specific job by ID
-router.get('/:id', authorizeJwt, verifyAccount([{name: 'job', action: "read"}]), async (req, res) => {
+router.get('/:id', authorizeJwt, verifyAccount([{ name: 'job', action: "read" }]), async (req, res) => {
     try {
         const { id } = req.params;
         const job = await job.findById(id);
@@ -52,7 +52,7 @@ router.get('/:id', authorizeJwt, verifyAccount([{name: 'job', action: "read"}]),
 });
 
 // POST /job - Create a new job
-router.post('/', authorizeJwt, verifyAccount([{name: 'job', action: "create"}]), async (req, res) => {
+router.post('/', authorizeJwt, verifyAccount([{ name: 'job', action: "create" }]), async (req, res) => {
     try {
         // Generate a new ObjectId for the _id field
         const newId = new mongoose.Types.ObjectId();
@@ -69,7 +69,7 @@ router.post('/', authorizeJwt, verifyAccount([{name: 'job', action: "create"}]),
 });
 
 // PUT /job /:id - Update a job by ID
-router.put('/:id', authorizeJwt, verifyAccount([{name: 'job', action: "update"}]), async (req, res) => {
+router.put('/:id', authorizeJwt, verifyAccount([{ name: 'job', action: "update" }]), async (req, res) => {
     try {
         const { id } = req.params;
         const job = await Job.findByIdAndUpdate(id, req.body, { new: true });
@@ -86,7 +86,7 @@ router.put('/:id', authorizeJwt, verifyAccount([{name: 'job', action: "update"}]
 });
 
 // DELETE /job/:id - Delete a job by ID
-router.delete('/:id', authorizeJwt, verifyAccount([{name: 'job', action: "delete"}]), async (req, res) => {
+router.delete('/:id', authorizeJwt, verifyAccount([{ name: 'job', action: "delete" }]), async (req, res) => {
     try {
         const { id } = req.params;
         const job = await Job.findByIdAndDelete(id);

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Blog = require('../models/blogmodel');
+const Blog = require('../models/blogModel');
 
 const mongoose = require("mongoose");
 const {authorizeJwt, verifyAccount} = require("../helpers/verifyAccount");
 
 // GET /blogs - Get all blogs
-router.get('/', authorizeJwt, verifyAccount([{name: 'blog', action: "read"}]), async (req, res) => {
+router.get('/', authorizeJwt, verifyAccount([{name: 'blogs', action: "read"}]), async (req, res) => {
 
     const filter = {};
     const search = req.query.search;
@@ -22,7 +22,7 @@ router.get('/', authorizeJwt, verifyAccount([{name: 'blog', action: "read"}]), a
     }
 
     try {
-        const blog = await Blog.find(filter);
+        const blog = await Blog.find(filter).populate('createdBy');
         res.status(200).json(blog);
     } catch (error) {
         console.error(error.message);
