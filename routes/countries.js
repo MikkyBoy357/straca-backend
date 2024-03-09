@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Country = require('../models/countryModel');
+const Country = require('../models/countryTypeModel');
 
 const mongoose = require("mongoose");
 const {authorizeJwt, verifyAccount} = require("../helpers/verifyAccount");
 
 // GET /countries - Get all countries
-router.get('/', authorizeJwt, verifyAccount([{name: 'country', action: "read"}]), async (req, res) => {
+router.get('/', authorizeJwt, verifyAccount([{name: 'CountryType', action: "read"}]), async (req, res) => {
 
     const filter = {};
     const search = req.query.search;
@@ -29,7 +29,7 @@ router.get('/', authorizeJwt, verifyAccount([{name: 'country', action: "read"}])
 });
 
 // GET /countries/:id - Get a specific country by ID
-router.get('/:id', authorizeJwt, verifyAccount([{name: 'country', action: "read"}]), async (req, res) => {
+router.get('/:id', authorizeJwt, verifyAccount([{name: 'CountryType', action: "read"}]), async (req, res) => {
     try {
         const { id } = req.params;
         const country = await Country.findById(id);
@@ -48,7 +48,7 @@ router.get('/:id', authorizeJwt, verifyAccount([{name: 'country', action: "read"
 });
 
 // POST /countries - Create a new country
-router.post('/', authorizeJwt, verifyAccount([{name: 'country', action: "create"}]), async (req, res) => {
+router.post('/', authorizeJwt, verifyAccount([{name: 'CountryType', action: "create"}]), async (req, res) => {
     try {
         // Generate a new ObjectId for the _id field
         const newId = new mongoose.Types.ObjectId();
@@ -65,7 +65,7 @@ router.post('/', authorizeJwt, verifyAccount([{name: 'country', action: "create"
 });
 
 // PUT /countries/:id - Update a country by ID
-router.put('/:id', authorizeJwt, verifyAccount([{name: 'country', action: "update"}]), async (req, res) => {
+router.put('/:id', authorizeJwt, verifyAccount([{name: 'CountryType', action: "update"}]), async (req, res) => {
     try {
         const { id } = req.params;
         const country = await Country.findByIdAndUpdate(id, req.body, { new: true });
@@ -82,7 +82,7 @@ router.put('/:id', authorizeJwt, verifyAccount([{name: 'country', action: "updat
 });
 
 // DELETE /countries/:id - Delete a country by ID
-router.delete('/:id', authorizeJwt, verifyAccount([{name: 'country', action: "delete"}]), async (req, res) => {
+router.delete('/:id', authorizeJwt, verifyAccount([{name: 'CountryType', action: "delete"}]), async (req, res) => {
     try {
         const { id } = req.params;
         const country = await Country.findByIdAndDelete(id);
