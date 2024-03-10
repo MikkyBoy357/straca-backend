@@ -23,10 +23,7 @@ const clientSchema = new mongoose.Schema(
             type: String,
         },
         password: { type: String, required: true },
-        status: {
-            type: String,
-            required: true
-        },
+      
     },
     {
         timestamps: true

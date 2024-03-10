@@ -13,7 +13,7 @@ const blogSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: validCategories,
+      
     },
     image: {
       type: String,

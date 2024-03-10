@@ -72,7 +72,6 @@ router.post('/signup', async (req, res) => {
                                         firstName: req.body.firstName,
                                         address: req.body.address,
                                         password: hash,
-                                        status: req.body.status
                                     });
 
                                     await newClient.save();

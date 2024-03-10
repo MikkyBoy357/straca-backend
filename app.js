@@ -9,7 +9,6 @@ const commandesRoutes = require('./routes/commandes');
 const pricingsRoutes = require('./routes/pricings');
 const employeesRoutes = require('./routes/employees');
 const transportTypesRoutes = require('./routes/transportTypes');
-const packageTypesRoutes = require('./routes/packageTypes');
 const measureUnitRoutes = require('./routes/measureUnits');
 const countryRoutes = require('./routes/countries');
 const dashboardRoutes = require('./routes/dashboard');
@@ -17,7 +16,13 @@ const productsRoutes = require('./routes/products');
 const usersRoutes = require('./routes/users');
 const permissionsRoute = require('./routes/permissions');
 const jobRoute = require('./routes/jobs');
-const blogRoute = require('./routes/blogs')
+const blogRoute = require('./routes/blogs');
+
+
+const blogTypeRoutes = require('./routes/blogType');
+const countryTypeRoutes = require('./routes/countryType');
+const productTypeRoutes = require('./routes/productType');
+const vehicleTypeRoutes = require('./routes/vehicleType');
 
 app.use(logger('[:date[web]] ":method :url" :status :res[content-length]'));
 
@@ -27,7 +32,7 @@ app.use('/commandes', commandesRoutes);
 app.use('/pricings', pricingsRoutes);
 app.use('/employees', employeesRoutes);
 app.use('/transportTypes', transportTypesRoutes);
-app.use('/packageTypes', packageTypesRoutes);
+app.use('/packageTypes', productTypeRoutes);
 app.use('/measureUnits', measureUnitRoutes);
 app.use('/countries', countryRoutes);
 app.use('/dashboard', dashboardRoutes);
@@ -36,6 +41,16 @@ app.use('/permissions', permissionsRoute);
 app.use('/users', usersRoutes);
 app.use('/blogs', blogRoute);
 app.use('/jobs', jobRoute);
+
+
+app.use('/blogType' , blogTypeRoutes);
+app.use('/countryType' , countryTypeRoutes);
+app.use('/productType' , productTypeRoutes);
+app.use('/vehicleType' , vehicleTypeRoutes);
+
+
+
+
 
 app.get('/', (req, res) => {
     res.send('Hello NODE API');
