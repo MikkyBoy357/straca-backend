@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const logger = require("morgan");
 
+const multer  = require('multer');
+const upload = multer({ dest: 'uploads/' })
+
 // Routes
 const authRoutes = require('./routes/auth');
 const clientsRoutes = require('./routes/clients');
@@ -58,6 +61,10 @@ app.get('/', (req, res) => {
 
 app.get('/blog', (req, res) => {
     res.send('Hello Blog');
+});
+
+app.post('/api/upload', upload.single('file'), (req, res) => {
+    res.json(req.file);
 });
 
 module.exports = app;
