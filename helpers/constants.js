@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const admin = require('firebase-admin');
+// const admin = require('firebase-admin');
 
 
 module.exports.validPermissionNames = ['user', 'permission', 'employee', 'client', 'commande', 'country', 'measureUnit', 'packageType', 'pricing', 'product', 'transportType'];
