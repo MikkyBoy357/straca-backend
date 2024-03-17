@@ -6,7 +6,7 @@ const serviceAccount = require("../flash-chat-3a9a7-firebase-adminsdk-tm1oj-d5e6
 try {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    storageBucket: "gs://flash-chat-3a9a7.appspot.com",
+    storageBucket: process.env.STORAGE_BUCKET,
   });
 
   console.log("===========> connected to FIREBASE <===========");
