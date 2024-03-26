@@ -4,7 +4,7 @@ const Blog = require("../models/blogModel");
 
 const mongoose = require("mongoose");
 const multer = require("multer");
-const { authorizeJwt, verifyAccount } = require("../helpers/verifyAccount");
+const { authorizeJwt, verifyAccount } = require("../helpers/verifyAccount"); 
 const imageUploadHelper = require("../helpers/imageUploadHelper");
 const upload = multer({storage: multer.memoryStorage()});
 // GET /blogs - Get all blogs
@@ -64,6 +64,7 @@ router.post(
   "/",
   authorizeJwt,
   verifyAccount([{ name: "blog", action: "create" }]),
+  upload.single("file"),
   async (req, res) => {
     try {
       // Check if an image file is included in the request
@@ -80,6 +81,7 @@ router.post(
       // Assign the generated _id and imageUrl to req.body
       req.body._id = newId;
       req.body.image = imageUrl;
+      
 
       // Create the blog with the provided data
       const blog = await Blog.create(req.body);
