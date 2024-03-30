@@ -51,7 +51,7 @@ app.use('/blogType', blogTypeRoutes);
 app.use('/countryType', countryTypeRoutes);
 app.use('/productType', productTypeRoutes);
 app.use('/vehicleType', vehicleTypeRoutes);
-app.use('/contractType', vehicleTypeRoutes);
+app.use('/contractType', contractTypeRoutes);
 
 
 
