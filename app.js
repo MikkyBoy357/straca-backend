@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const logger = require("morgan");
 
-const multer  = require('multer');
+const multer = require('multer');
 const upload = multer({ dest: 'uploads/' })
 
 // Routes
@@ -26,6 +26,7 @@ const blogTypeRoutes = require('./routes/blogType');
 const countryTypeRoutes = require('./routes/countryType');
 const productTypeRoutes = require('./routes/productType');
 const vehicleTypeRoutes = require('./routes/vehicleType');
+const contractTypeRoutes = require('./routes/contractType');
 
 app.use(logger('[:date[web]] ":method :url" :status :res[content-length]'));
 
@@ -46,10 +47,11 @@ app.use('/blogs', blogRoute);
 app.use('/jobs', jobRoute);
 
 
-app.use('/blogType' , blogTypeRoutes);
-app.use('/countryType' , countryTypeRoutes);
-app.use('/productType' , productTypeRoutes);
-app.use('/vehicleType' , vehicleTypeRoutes);
+app.use('/blogType', blogTypeRoutes);
+app.use('/countryType', countryTypeRoutes);
+app.use('/productType', productTypeRoutes);
+app.use('/vehicleType', vehicleTypeRoutes);
+app.use('/contractType', vehicleTypeRoutes);
 
 
 
