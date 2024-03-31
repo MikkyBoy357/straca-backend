@@ -14,7 +14,7 @@ router.get('/', authorizeJwt, verifyAccount([{name: 'client', action: "read"}]),
       { lastName: { $regex: search, $options: "i" } },
       { phone: { $regex: search, $options: "i" } },
       { email: { $regex: search, $options: "i" } },
-      { address: { $regex: search, $options: "i" } },
+      // { address: { $regex: search, $options: "i" } },
     ];
   }
 

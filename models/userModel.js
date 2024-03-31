@@ -25,9 +25,6 @@ const userSchema = mongoose.Schema(
         },
         address: {
             type: String,
-            required: function () {
-                return this.type !== 'admin';
-            }
         },
         type: {
             type: String,

@@ -22,6 +22,9 @@ const clientSchema = new mongoose.Schema(
         address: {
             type: String,
         },
+        company: {
+            type: String,
+        },
         password: { type: String, required: true },
       
     },
