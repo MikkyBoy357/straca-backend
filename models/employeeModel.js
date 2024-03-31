@@ -19,14 +19,10 @@ const employeeSchema = mongoose.Schema(
             type: String,
             required: [true, "Please enter employee phone number"]
         },
-        address: {
-            type: String,
-        },
+       
         password: { type: String, required: true },
-        status: {
-            type: String,
-            required: true
-        },
+        title: { type: String, required: true },
+    
     },
     {
         timestamps: true

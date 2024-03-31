@@ -68,6 +68,7 @@ router.put('/:id', authorizeJwt, verifyAccount([{name: 'client', action: "update
 });
 
 router.delete('/:id', authorizeJwt, verifyAccount([{name: 'client', action: "delete"}]), async (req, res) => {
+  console.log("omo");
   try {
     const { id } = req.params;
     const client = await Client.findByIdAndDelete(id);
