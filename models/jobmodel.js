@@ -12,10 +12,15 @@ const jobSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    proximity: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Proximity',
+      required: true
+    },
     contractType: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'ContractType',
       required: true,
-      enum: validContractTypes,
     },
     location: {
       type: String,
@@ -35,4 +40,6 @@ const jobSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Job", jobSchema);
+const Job = mongoose.model("Job", jobSchema);
+
+module.exports = Job;

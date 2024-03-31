@@ -27,6 +27,7 @@ const countryTypeRoutes = require('./routes/countryType');
 const productTypeRoutes = require('./routes/productType');
 const vehicleTypeRoutes = require('./routes/vehicleType');
 const contractTypeRoutes = require('./routes/contractType');
+const proximityRoutes = require('./routes/proximity');
 
 app.use(logger('[:date[web]] ":method :url" :status :res[content-length]'));
 
@@ -52,6 +53,7 @@ app.use('/countryType', countryTypeRoutes);
 app.use('/productType', productTypeRoutes);
 app.use('/vehicleType', vehicleTypeRoutes);
 app.use('/contractType', contractTypeRoutes);
+app.use('/proximity', proximityRoutes);
 
 
 
