@@ -26,7 +26,7 @@ router.get('/', authorizeJwt, verifyAccount([{ name: 'jobs', action: "read" }]),
 
 
     try {
-        const job = await Job.find(filter);
+        const job = await Job.find(filter).populate('proximity contractType');
         res.status(200).json(job);
     } catch (error) {
         console.error(error.message);
@@ -38,7 +38,7 @@ router.get('/', authorizeJwt, verifyAccount([{ name: 'jobs', action: "read" }]),
 router.get('/:id', authorizeJwt, verifyAccount([{ name: 'job', action: "read" }]), async (req, res) => {
     try {
         const { id } = req.params;
-        const job = await job.findById(id);
+        const job = await job.findById(id).populate('proximity contractType');
 
         if (!job) {
             return res.status(404).json({ message: `Job with ID ${id} not found` });
