@@ -22,10 +22,6 @@ const jobSchema = new mongoose.Schema(
       ref: 'ContractType',
       required: true,
     },
-    location: {
-      type: String,
-      required: true,
-    },
     dateOfCreation: {
       type: Date,
       default: Date.now,
