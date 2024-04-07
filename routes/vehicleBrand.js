@@ -1,15 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const VehicleType = require("../models/vehicleTypeModel");
+const VehicleBrand = require("../models/vehicleBrandModel");
 
 const mongoose = require("mongoose");
 const { authorizeJwt, verifyAccount } = require("../helpers/verifyAccount");
 
-// GET /vehicleTypes - Get all VehicleTypes
+// GET /vehicleBrands - Get all VehicleBrands
 router.get(
   "/",
   authorizeJwt,
-  verifyAccount([{ name: "vehicleType", action: "read" }]),
+  verifyAccount([{ name: "vehicleBrand", action: "read" }]),
   async (req, res) => {
     const filter = {};
     const search = req.query.search;
@@ -22,8 +22,8 @@ router.get(
     }
 
     try {
-      const vehicleType = await VehicleType.find(filter);
-      res.status(200).json(vehicleType);
+      const vehicleBrand = await VehicleBrand.find(filter);
+      res.status(200).json(vehicleBrand);
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: error.message });
@@ -31,23 +31,23 @@ router.get(
   }
 );
 
-// GET /vehicleTypes/:id - Get a specific vehicleTypes by ID
+// GET /vehicleBrands/:id - Get a specific vehicleBrands by ID
 router.get(
   "/:id",
   authorizeJwt,
-  verifyAccount([{ name: "vehicleType", action: "read" }]),
+  verifyAccount([{ name: "vehicleBrand", action: "read" }]),
   async (req, res) => {
     try {
       const { id } = req.params;
-      const vehicleType = await VehicleType.findById(id);
+      const vehicleBrand = await VehicleBrand.findById(id);
 
-      if (!vehicleType) {
+      if (!vehicleBrand) {
         return res
           .status(404)
-          .json({ message: `vehicleType with ID ${id} not found` });
+          .json({ message: `vehicleBrand with ID ${id} not found` });
       }
 
-      res.status(200).json(vehicleType);
+      res.status(200).json(vehicleBrand);
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: error.message });
@@ -55,11 +55,11 @@ router.get(
   }
 );
 
-// POST /vehicleType - Create a new vehicleType
+// POST /vehicleBrand - Create a new vehicleBrand
 router.post(
   "/",
   authorizeJwt,
-  verifyAccount([{ name: "vehicleType", action: "create" }]),
+  verifyAccount([{ name: "vehicleBrand", action: "create" }]),
   async (req, res) => {
     try {
       // Generate a new ObjectId for the _id field
@@ -68,8 +68,8 @@ router.post(
       // Assign the generated _id to req.body
       req.body._id = newId;
 
-      const vehicleType = await VehicleType.create(req.body);
-      res.status(201).json(vehicleType);
+      const vehicleBrand = await VehicleBrand.create(req.body);
+      res.status(201).json(vehicleBrand);
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: error.message });
@@ -77,25 +77,25 @@ router.post(
   }
 );
 
-// PUT /vehicleType/:id - Update a vehicleType by ID
+// PUT /vehicleBrand/:id - Update a vehicleBrand by ID
 router.put(
   "/:id",
   authorizeJwt,
-  verifyAccount([{ name: "vehicleType", action: "update" }]),
+  verifyAccount([{ name: "vehicleBrand", action: "update" }]),
   async (req, res) => {
     try {
       const { id } = req.params;
-      const vehicleType = await VehicleType.findByIdAndUpdate(id, req.body, {
+      const vehicleBrand = await VehicleBrand.findByIdAndUpdate(id, req.body, {
         new: true,
       });
 
-      if (!vehicleType) {
+      if (!vehicleBrand) {
         return res
           .status(404)
-          .json({ message: `Cannot find any vehicleType with ID ${id}` });
+          .json({ message: `Cannot find any vehicleBrand with ID ${id}` });
       }
 
-      res.status(200).json(vehicleType);
+      res.status(200).json(vehicleBrand);
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: error.message });
@@ -103,23 +103,23 @@ router.put(
   }
 );
 
-// DELETE /vehicleType/:id - Delete a vehicleType by ID
+// DELETE /vehicleBrand/:id - Delete a vehicleBrand by ID
 router.delete(
   "/:id",
   authorizeJwt,
-  verifyAccount([{ name: "vehicleType", action: "delete" }]),
+  verifyAccount([{ name: "vehicleBrand", action: "delete" }]),
   async (req, res) => {
     try {
       const { id } = req.params;
-      const vehicleType = await VehicleType.findByIdAndDelete(id);
+      const vehicleBrand = await VehicleBrand.findByIdAndDelete(id);
 
-      if (!vehicleType) {
+      if (!vehicleBrand) {
         return res
           .status(404)
-          .json({ message: `Cannot find any VehicleType with ID ${id}` });
+          .json({ message: `Cannot find any VehicleBrand with ID ${id}` });
       }
 
-      res.status(200).json(vehicleType);
+      res.status(200).json(vehicleBrand);
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ message: error.message });
