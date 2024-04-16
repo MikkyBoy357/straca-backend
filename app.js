@@ -20,6 +20,7 @@ const usersRoutes = require('./routes/users');
 const permissionsRoute = require('./routes/permissions');
 const jobRoute = require('./routes/jobs');
 const blogRoute = require('./routes/blogs');
+const trackingRoute = require('./routes/tracking');
 
 
 const blogTypeRoutes = require('./routes/blogType');
@@ -46,6 +47,7 @@ app.use('/permissions', permissionsRoute);
 app.use('/users', usersRoutes);
 app.use('/blogs', blogRoute);
 app.use('/jobs', jobRoute);
+app.use('/tracking', trackingRoute);
 
 
 app.use('/blogType', blogTypeRoutes);
