@@ -34,6 +34,34 @@ router.get('/', authorizeJwt, verifyAccount([{ name: 'jobs', action: "read" }]),
     }
 });
 
+//get all jobs: Client///
+router.get('/', async (req, res) => {
+
+    const filter = {};
+    const search = req.query.search;
+
+
+
+    if (search) {
+        filter.$or = [
+            { post: { $regex: search, $options: "i" } },
+            { salary: { $regex: search, $options: "i" } },
+            { description: { $regex: search, $options: "i" } },
+            { location: { $regex: search, $options: "i" } }
+
+        ];
+
+    }
+
+
+    try {
+        const job = await Job.find(filter).populate('proximity contractType');
+        res.status(200).json(job);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ message: error.message });
+    }
+});
 // GET /jobs/:id - Get a specific job by ID
 router.get('/:id', authorizeJwt, verifyAccount([{ name: 'job', action: "read" }]), async (req, res) => {
     try {
