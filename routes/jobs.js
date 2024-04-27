@@ -35,22 +35,30 @@ router.get('/', authorizeJwt, verifyAccount([{ name: 'jobs', action: "read" }]),
 });
 
 //get all jobs: Client///
-router.get('/', async (req, res) => {
-
+router.get('/clients', async (req, res) => {
     const filter = {};
     const search = req.query.search;
+    const location = req.query.location;
+    const salary= req.query.salary;
+
+    if (location) {
+        filter.location = {proximity: {$elemMatch: {label: location}}}
+        
+    }
+    if(salary) {
+        filter.salary = { $gte: parseFloat(salary) };
+    }
 
 
 
     if (search) {
         filter.$or = [
             { post: { $regex: search, $options: "i" } },
-            { salary: { $regex: search, $options: "i" } },
+            // { salary: { $regex: search, $options: "i" } },
             { description: { $regex: search, $options: "i" } },
             { location: { $regex: search, $options: "i" } }
 
         ];
-
     }
 
 
