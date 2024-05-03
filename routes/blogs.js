@@ -10,8 +10,6 @@ const upload = multer({storage: multer.memoryStorage()});
 // GET /blogs - Get all blogs
 router.get(
   "/",
-  authorizeJwt,
-  verifyAccount([{ name: "blogs", action: "read" }]),
   async (req, res) => {
     const filter = {};
     const search = req.query.search;
@@ -34,12 +32,60 @@ router.get(
   }
 );
 
+// GET /blogs/actualites - Get published blogs with category "actualités"
+router.get("/actualites", async (req, res) => {
+  try {
+    const blogs = await Blog.find({ category: "Actualite", status: "published" }).populate("createdBy");
+    res.status(200).json(blogs);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET /blogs/savoir-faire - Get published blogs with category "savoir-faire"
+router.get("/savoir-faire", async (req, res) => {
+  try {
+    const blogs = await Blog.find({ category: "Savoir-faire", status: "published" }).populate("createdBy");
+    res.status(200).json(blogs);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET /blogs/latest/actualites - Get the latest published blog under the "actualités" category
+router.get("/latest/actualites", async (req, res) => {
+  try {
+    const latestActualitesBlog = await Blog.findOne({ category: "Actualite", status: "published" }).sort({ createdAt: -1 }).populate("createdBy");
+    if (!latestActualitesBlog) {
+      return res.status(404).json({ message: "No published blogs found under the 'actualités' category" });
+    }
+    res.status(200).json(latestActualitesBlog);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// GET /blogs/latest/savoir-faire - Get the latest published blog under the "savoir-faire" category
+router.get("/latest/savoir-faire", async (req, res) => {
+  try {
+    const latestSavoirFaireBlog = await Blog.findOne({ category: "Savoir-faire", status: "published" }).sort({ createdAt: -1 }).populate("createdBy");
+    if (!latestSavoirFaireBlog) {
+      return res.status(404).json({ message: "No published blogs found under the 'savoir-faire' category" });
+    }
+    res.status(200).json(latestSavoirFaireBlog);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 // GET /blogs/:id - Get a specific blog by ID
 router.get(
   "/:id",
-  authorizeJwt,
-  verifyAccount([{ name: "blog", action: "read" }]),
-  
   async (req, res) => {
     try {
       const { id } = req.params;
@@ -154,5 +200,9 @@ router.delete(
     }
   }
 );
+
+
+
+
 
 module.exports = router;

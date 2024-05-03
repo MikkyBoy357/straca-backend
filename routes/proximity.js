@@ -8,8 +8,6 @@ const Proximity = require("../models/proximityModel");
 // GET /proximityLists - Get all proximitiesLists
 router.get(
   "/",
-  authorizeJwt,
-  verifyAccount([{ name: "Proximity", action: "read" }]),
   async (req, res) => {
     const filter = {};
     const search = req.query.search;

@@ -8,8 +8,7 @@ const ContractType = require("../models/contractTypeModel");
 // GET /contractTypeLists - Get all contractTypesLists
 router.get(
   "/",
-  authorizeJwt,
-  verifyAccount([{ name: "ContractType", action: "read" }]),
+
   async (req, res) => {
     const filter = {};
     const search = req.query.search;
@@ -34,8 +33,6 @@ router.get(
 // GET /contractTypeLists/:id - Get a specific contractTypeList by ID
 router.get(
   "/:id",
-  authorizeJwt,
-  verifyAccount([{ name: "ContractType", action: "read" }]),
   async (req, res) => {
     try {
       const { id } = req.params;

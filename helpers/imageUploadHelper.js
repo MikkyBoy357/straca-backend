@@ -38,5 +38,35 @@ const imageUploadHelper = async (imageFile) => {
 
   return downloadURL;
 };
+const resumeUploadHelper = async (resumeFile) => {
+  if (!resumeFile) {
+    return "";
+  }
 
-module.exports = imageUploadHelper;
+  // Upload file to Firebase Storage
+  const timestamp = Date.now().toString();
+  const fileName = `${timestamp}_${resumeFile.originalname}`;
+
+  // create ref
+  const storageRef = ref(storage, `resumes/${fileName}`);
+
+  // Create file metadata including the content type
+  const metadata = {
+    contentType: resumeFile.mimetype,
+  };
+
+  // By using uploadBytesResumable we can control the progress of uploading like pause, resume, cancel
+  const snapshot = await uploadBytesResumable(
+    storageRef,
+    resumeFile.buffer,
+    metadata
+  );
+
+  // Grab the public url
+  const downloadURL = await getDownloadURL(snapshot.ref);
+  console.log("=======> File successfully uploaded.");
+
+  return downloadURL;
+};
+
+module.exports = {imageUploadHelper, resumeUploadHelper};

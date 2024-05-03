@@ -31,6 +31,7 @@ const contractTypeRoutes = require('./routes/contractType');
 const proximityRoutes = require('./routes/proximity');
 const vehicleBrandRoutes = require('./routes/vehicleBrand');
 const newsLetterRoutes = require('./routes/newsletter');
+const cvRoutes = require('./routes/cv');
 
 app.use(logger('[:date[web]] ":method :url" :status :res[content-length]'));
 
@@ -60,6 +61,8 @@ app.use('/contractType', contractTypeRoutes);
 app.use('/proximity', proximityRoutes);
 app.use('/vehicleBrand', vehicleBrandRoutes);
 app.use('/newsLetter', newsLetterRoutes);
+app.use('/cv', cvRoutes);
+
 
 
 

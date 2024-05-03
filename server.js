@@ -13,6 +13,7 @@ server.use(express.json({ limit: "10mb" }));
 server.use(
   cors({
     origin: "*",
+    
   })
 );
 
